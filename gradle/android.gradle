@@ -1,0 +1,45 @@
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+
+        applicationVariants.all { variant ->
+            def outputCollection = variant.outputs
+            outputCollection.each { output ->
+                def file = output.outputFile
+                if (file != null && file.name.endsWith('.apk')) {
+                    output.outputFile = new File(file.parent, file.name.replace(".apk", "-" + versionName + ".apk"))
+                }
+            }
+        }
+    }
+
+    packagingOptions {
+        exclude 'LICENSE.txt'
+    }
+
+    compileOptions {
+        sourceCompatibility rootProject.ext.compileJavaVersion
+        targetCompatibility rootProject.ext.compileJavaVersion
+    }
+
+    signingConfigs {
+        debug {
+            storeFile rootProject.file(DEBUG_STORE_FILE)
+            storePassword DEBUG_STORE_PASSWORD
+            keyPassword DEBUG_KEY_PASSWORD
+            keyAlias DEBUG_KEY_ALIAS
+        }
+        release {
+            storeFile rootProject.file(RELEASE_STORE_FILE)
+            storePassword RELEASE_STORE_PASSWORD
+            keyPassword RELEASE_KEY_PASSWORD
+            keyAlias RELEASE_KEY_ALIAS
+        }
+    }
+}
