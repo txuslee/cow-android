@@ -22,7 +22,14 @@ public class WordProcessorTask extends AsyncTask<String, String, Void> implement
     @Override
     public void doExecute(String parameter)
     {
+        this.presenter.clearWordCount();
         this.execute(parameter);
+    }
+
+    @Override
+    public void doCancel()
+    {
+        this.cancel(true);
     }
 
     @Override
@@ -59,6 +66,7 @@ public class WordProcessorTask extends AsyncTask<String, String, Void> implement
     protected void onProgressUpdate(String... values)
     {
         super.onProgressUpdate(values);
+        this.presenter.updateWordCount(values[0]);
         this.presenter.updateProgress(values[0]);
     }
 

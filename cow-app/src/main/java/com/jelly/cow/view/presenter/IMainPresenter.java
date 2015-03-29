@@ -11,7 +11,11 @@ public interface IMainPresenter extends IPresenter<IMainActivity>
 
     List<String> getWordList();
 
+    void clearWordCount();
+
     void startLoading();
+
+    void updateWordCount(String word);
 
     void updateProgress(String word);
 

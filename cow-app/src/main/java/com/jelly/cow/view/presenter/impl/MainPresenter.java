@@ -37,6 +37,14 @@ public class MainPresenter extends BasePresenter<IMainActivity> implements IMain
         }
     }
 
+    @Override
+    public void clearWordCount()
+    {
+        this.counter.clear();
+        this.list.clear();
+    }
+
+    @Override
     public void updateWordCount(final String word)
     {
         Integer count = this.getWordCount(word);
@@ -47,8 +55,6 @@ public class MainPresenter extends BasePresenter<IMainActivity> implements IMain
     @Override
     public void updateProgress(final String word)
     {
-        this.updateWordCount(word);
-
         final IMainActivity activity = this.getActivity();
         if (activity != null)
         {

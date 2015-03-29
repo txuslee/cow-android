@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface IMainActivity extends IActivity
 {
-    void initializeList(List<String> list);
+    void initializeList(final List<String> list);
 
     void startLoading();
 

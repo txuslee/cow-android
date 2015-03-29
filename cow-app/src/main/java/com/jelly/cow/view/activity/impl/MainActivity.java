@@ -28,6 +28,7 @@ public class MainActivity extends Activity implements IMainActivity
     public ListView cowListView;
 
     private IMainPresenter presenter;
+    private IWordProcessorTask task;
     private BaseAdapter adapter;
 
     @Override
@@ -43,13 +44,24 @@ public class MainActivity extends Activity implements IMainActivity
     }
 
     @Override
-    protected void onResume()
+    protected void onStart()
     {
         super.onResume();
 
         final TextLoader loader = new TextLoader(new AssetLoader(getBaseContext()));
-        final IWordProcessorTask task = new WordProcessorTask(this.presenter, loader);
+        this.task = new WordProcessorTask(this.presenter, loader);
         task.doExecute("quijote.txt");
+    }
+
+    @Override
+    protected void onStop()
+    {
+        super.onPause();
+        if (this.task != null)
+        {
+            this.task.doCancel();
+            this.task = null;
+        }
     }
 
     @Override
