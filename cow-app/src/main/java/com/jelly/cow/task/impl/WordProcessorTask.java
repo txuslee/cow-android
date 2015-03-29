@@ -23,6 +23,7 @@ public class WordProcessorTask extends AsyncTask<String, String, Void> implement
     public void doExecute(String parameter)
     {
         this.presenter.clearWordCount();
+        this.presenter.updateProgress(null);
         this.execute(parameter);
     }
 
@@ -74,6 +75,7 @@ public class WordProcessorTask extends AsyncTask<String, String, Void> implement
     protected void onPostExecute(Void aVoid)
     {
         super.onPostExecute(aVoid);
+        this.presenter.updateProgress(null);
         this.presenter.stopLoading();
     }
 

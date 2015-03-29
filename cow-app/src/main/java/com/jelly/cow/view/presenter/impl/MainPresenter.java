@@ -45,7 +45,7 @@ public class MainPresenter extends BasePresenter<IMainActivity> implements IMain
     }
 
     @Override
-    public void updateWordCount(final String word)
+    public synchronized void updateWordCount(final String word)
     {
         Integer count = this.getWordCount(word);
         this.counter.put(word.toLowerCase(), ++count);
