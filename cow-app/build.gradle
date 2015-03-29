@@ -19,6 +19,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile rootProject.ext.libraries.appCompat
     compile rootProject.ext.libraries.butterknife
     testCompile rootProject.ext.testLibraries
 }

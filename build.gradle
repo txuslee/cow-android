@@ -43,6 +43,7 @@ ext.plugins = [
 
 ext.libraries = [
         supportLib: 'com.android.support:support-v4:21.0.2',
+        appCompat: 'com.android.support:appcompat-v7:21.0.2',
         butterknife: 'com.jakewharton:butterknife:6.1.0'
 ]
 
