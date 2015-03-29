@@ -6,7 +6,9 @@ import com.jelly.cow.configuration.loader.ITextLoader;
 import com.jelly.cow.task.IWordProcessorTask;
 import com.jelly.cow.view.presenter.IMainPresenter;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.StringReader;
 
 public class WordProcessorTask extends AsyncTask<String, String, Void> implements IWordProcessorTask
 {
@@ -46,12 +48,18 @@ public class WordProcessorTask extends AsyncTask<String, String, Void> implement
         try
         {
             final String text = this.loader.load(params[0]);
-            final String[] words = text.split("[\\W]");
-            for (String word : words)
+            final BufferedReader reader = new BufferedReader(new StringReader(text));
+            String cursor;
+
+            while ((cursor = reader.readLine()) != null)
             {
-                if (!word.equalsIgnoreCase(""))
+                final String[] words = cursor.split("[\\W]");
+                for (String word : words)
                 {
-                    this.publishProgress(word);
+                    if (!word.equalsIgnoreCase(""))
+                    {
+                        this.publishProgress(word);
+                    }
                 }
             }
         }
