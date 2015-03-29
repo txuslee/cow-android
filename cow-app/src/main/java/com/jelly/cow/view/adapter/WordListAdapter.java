@@ -7,19 +7,22 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.jelly.cow.view.adapter.holder.WordViewHolder;
+import com.jelly.cow.view.presenter.IMainPresenter;
 
 import java.util.List;
 
 
 public class WordListAdapter extends BaseAdapter
 {
+    private final IMainPresenter presenter;
     private final List<String> list;
     private final Context context;
 
-    public WordListAdapter(final Context context, final List<String> list)
+    public WordListAdapter(final Context context, final IMainPresenter presenter)
     {
+        this.presenter = presenter;
+        this.list = presenter.getWordList();
         this.context = context;
-        this.list = list;
     }
 
     @Override
@@ -44,7 +47,6 @@ public class WordListAdapter extends BaseAdapter
     public View getView(int position, View convertView, ViewGroup parent)
     {
         WordViewHolder view;
-
         if (convertView == null)
         {
             convertView = LayoutInflater.from(this.context).inflate(android.R.layout.simple_list_item_2, null);
@@ -56,7 +58,8 @@ public class WordListAdapter extends BaseAdapter
             view = (WordViewHolder) convertView.getTag();
         }
 
-        view.update((String) this.getItem(position), "0");
+        final String word = (String) this.getItem(position);
+        view.update(word, this.presenter.getWordCount(word).toString());
         return convertView;
     }
 }

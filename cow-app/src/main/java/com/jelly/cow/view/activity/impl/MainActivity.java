@@ -58,7 +58,7 @@ public class MainActivity extends Activity implements IMainActivity
     @Override
     public void initializeList(final List<String> list)
     {
-        this.adapter = new WordListAdapter(this, list);
+        this.adapter = new WordListAdapter(this, this.presenter);
         this.cowListView.setAdapter(this.adapter);
     }
 
