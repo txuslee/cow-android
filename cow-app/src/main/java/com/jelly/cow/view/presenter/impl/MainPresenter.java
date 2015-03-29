@@ -1,10 +1,8 @@
 package com.jelly.cow.view.presenter.impl;
 
-import com.jelly.cow.configuration.loader.ITextLoader;
 import com.jelly.cow.view.activity.IMainActivity;
 import com.jelly.cow.view.presenter.IMainPresenter;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,13 +13,11 @@ public class MainPresenter extends BasePresenter<IMainActivity> implements IMain
 {
     private final Map<String, Integer> counter;
     private final List<String> list;
-    private final ITextLoader loader;
 
-    public MainPresenter(final ITextLoader loader)
+    public MainPresenter()
     {
         this.counter = new HashMap<String, Integer>();
         this.list = new ArrayList<String>();
-        this.loader = loader;
     }
 
     @Override
@@ -32,23 +28,35 @@ public class MainPresenter extends BasePresenter<IMainActivity> implements IMain
     }
 
     @Override
-    public void load(final String uri) throws IOException
+    public void startLoading()
     {
-        final String text = this.loader.load(uri);
-        final String[] words = text.split("[\\W]");
-        for (String word : words)
+        final IMainActivity activity = this.getActivity();
+        if (activity != null)
         {
-            if (!word.equalsIgnoreCase(""))
-            {
-                this.updateWordCount(word);
-                this.list.add(word);
+            activity.startLoading();
+        }
+    }
 
-                final IMainActivity activity = this.getActivity();
-                if (activity != null)
-                {
-                    activity.updateList();
-                }
-            }
+    @Override
+    public void updateProgress(final String word)
+    {
+        this.updateWordCount(word);
+        this.list.add(word);
+
+        final IMainActivity activity = this.getActivity();
+        if (activity != null)
+        {
+            activity.updateList();
+        }
+    }
+
+    @Override
+    public void stopLoading()
+    {
+        final IMainActivity activity = this.getActivity();
+        if (activity != null)
+        {
+            activity.stopLoading();
         }
     }
 

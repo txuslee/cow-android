@@ -6,5 +6,9 @@ public interface IMainActivity extends IActivity
 {
     void initializeList(List<String> list);
 
+    void startLoading();
+
     void updateList();
+
+    void stopLoading();
 }
