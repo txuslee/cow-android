@@ -9,14 +9,17 @@ import com.jelly.cow.view.presenter.IMainPresenter;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.regex.Pattern;
 
 public class WordProcessorTask extends AsyncTask<String, String, Void> implements IWordProcessorTask
 {
     private final IMainPresenter presenter;
     private final ITextLoader loader;
+    private final Pattern pattern;
 
     public WordProcessorTask(final IMainPresenter presenter, final ITextLoader loader)
     {
+        this.pattern = Pattern.compile("[\\W]");
         this.presenter = presenter;
         this.loader = loader;
     }
@@ -53,7 +56,7 @@ public class WordProcessorTask extends AsyncTask<String, String, Void> implement
 
             while ((cursor = reader.readLine()) != null)
             {
-                final String[] words = cursor.split("[\\W]");
+                final String[] words = this.pattern.split(cursor);
                 for (String word : words)
                 {
                     if (!word.equalsIgnoreCase(""))
