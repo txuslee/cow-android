@@ -37,11 +37,17 @@ public class MainPresenter extends BasePresenter<IMainActivity> implements IMain
         }
     }
 
+    public void updateWordCount(final String word)
+    {
+        Integer count = this.getWordCount(word);
+        this.counter.put(word.toLowerCase(), ++count);
+        this.list.add(word);
+    }
+
     @Override
     public void updateProgress(final String word)
     {
         this.updateWordCount(word);
-        this.list.add(word);
 
         final IMainActivity activity = this.getActivity();
         if (activity != null)
@@ -58,12 +64,6 @@ public class MainPresenter extends BasePresenter<IMainActivity> implements IMain
         {
             activity.stopLoading();
         }
-    }
-
-    private void updateWordCount(final String word)
-    {
-        Integer count = this.getWordCount(word);
-        this.counter.put(word.toLowerCase(), ++count);
     }
 
     @Override
