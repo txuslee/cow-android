@@ -46,7 +46,7 @@ public class MainActivity extends Activity implements IMainActivity
     @Override
     protected void onStart()
     {
-        super.onResume();
+        super.onStart();
 
         final TextLoader loader = new TextLoader(new AssetLoader(getBaseContext()));
         this.task = new WordProcessorTask(this.presenter, loader);
@@ -56,12 +56,10 @@ public class MainActivity extends Activity implements IMainActivity
     @Override
     protected void onStop()
     {
-        super.onPause();
-        if (this.task != null)
-        {
-            this.task.doCancel();
-            this.task = null;
-        }
+        super.onStop();
+
+        this.task.doCancel();
+        this.task = null;
     }
 
     @Override
