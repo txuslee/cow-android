@@ -35,6 +35,16 @@ ext {
     buildToolsVersion = '22.0.1'
 
     compileJavaVersion = JavaVersion.VERSION_1_7
+
+    debugStoreFile = file(DEBUG_STORE_FILE)
+    debugStorePassword = DEBUG_STORE_PASSWORD
+    debugKeyPassword = DEBUG_KEY_PASSWORD
+    debugKeyAlias = DEBUG_KEY_ALIAS
+
+    releaseStoreFile = file(RELEASE_STORE_FILE)
+    releaseStorePassword = RELEASE_STORE_PASSWORD
+    releaseKeyPassword = RELEASE_KEY_PASSWORD
+    releaseKeyAlias = RELEASE_KEY_ALIAS
 }
 
 ext.plugins = [
