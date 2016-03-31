@@ -9,9 +9,11 @@ before_install:
   # - sudo apt-get install -qq libstdc++6:i386 lib32z1
   # - if [ `uname -m` = x86_64 ]; then sudo apt-get install -qq --force-yes libgd2-xpm ia32-libs ia32-libs-multiarch; fi
 
-  # sudo dpkg --add-architecture i386
-  # sudo apt-get update
-  # sudo apt-get install libncurses5:i386 libstdc++6:i386 zlib1g:i386
+  # From: http://developer.android.com/sdk/installing/index.html?pkg=tools
+  # If you are running a 64-bit distribution on your development machine, you need to install additional packages first
+  - sudo dpkg --add-architecture i386
+  - sudo apt-get update
+  - sudo apt-get install libncurses5:i386 libstdc++6:i386 zlib1g:i386
 
   # download the latest android sdk and unzip
   - wget http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz
