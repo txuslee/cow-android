@@ -4,23 +4,20 @@ jdk:
   - oraclejdk7
 
 before_install:
-  # install necessary x32-libs for Android SDK, see http://rkistner.github.io/android/2013/02/05/android-builds-on-travis-ci/
-  # - sudo apt-get update -qq
-  # - sudo apt-get install -qq libstdc++6:i386 lib32z1
-  # - if [ `uname -m` = x86_64 ]; then sudo apt-get install -qq --force-yes libgd2-xpm ia32-libs ia32-libs-multiarch; fi
-
   # From: http://developer.android.com/sdk/installing/index.html?pkg=tools
   # If you are running a 64-bit distribution on your development machine, you need to install additional packages first
+  # install necessary x32-libs for Android SDK, see http://rkistner.github.io/android/2013/02/05/android-builds-on-travis-ci/
   - sudo dpkg --add-architecture i386
   - sudo apt-get update
   - sudo apt-get install libncurses5:i386 libstdc++6:i386 zlib1g:i386
 
-  # download the latest android sdk and unzip
+  # Download the latest android sdk and unzip
   - wget http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz
   - tar -zxf android-sdk_r24.4.1-linux.tgz
   - export ANDROID_HOME=`pwd`/android-sdk-linux
   - export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
-  # only update the sdk for the tools and platform-tools and required api level
+
+  # Update the sdk for the tools and platform-tools and required api level
   # (run "android list sdk --extended" to get the full list)
   # - echo y | android update sdk -a --filter tools,platform-tools,build-tools-23.0.2,android-23,extra-android-support,extra-android-m2repository,extra-google-m2repository --no-ui --force
   - echo y | android update sdk -a --filter platform-tools --no-ui --force
@@ -36,4 +33,4 @@ install:
   - ./gradlew clean build
 
 script:
-  - ./gradlew check test
+  - ./gradlew test
