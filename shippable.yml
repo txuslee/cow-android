@@ -39,4 +39,4 @@ script:
   - ./gradlew test
 
 after_script:
-    - cp -r build/test-results/* shippable/testresults/
+    - find . -path \*build/test-results -exec cp -rfp {} shippable/testresults/ \;
