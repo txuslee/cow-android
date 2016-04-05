@@ -32,5 +32,11 @@ before_install:
 install:
   - ./gradlew clean build
 
+before_script:
+    - mkdir -p shippable/testresults
+
 script:
   - ./gradlew test
+
+after_script:
+    - cp -r build/test-results/* shippable/testresults/
